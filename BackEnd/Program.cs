@@ -55,8 +55,7 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://localhost:4200",
-                "https://localhost:4200",
-                "https://6zkl4pnc-4200.usw3.devtunnels.ms"
+                "https://alejandro28-cloud.github.io/"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
