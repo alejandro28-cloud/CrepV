@@ -9,9 +9,18 @@
         <p>No hay caja abierta.<br />Realiza una apertura primero.</p>
     </div>
     } @else {
-        
-
     
+    @if(toastMessage()){
+        <div class="cart-toast"  class="cart-toast" [class.error]="toastType() === 'error'">
+            <span class="toast-icon">
+                {{ toastType() === 'success' ? '✓' : '!' }}
+            </span>
+            {{ toastMessage() }}
+        </div>
+    }
+    
+  
+        
 
     <!-- Busqueda de productos -->
   
@@ -170,9 +179,6 @@
     }
     @if (orderError()) {
         <p class="error-msg">{{ orderError() }}</p>
-    }
-    @if (orderSuccess()) {
-        <p class="success-msg">✓ Orden creada correctamente</p>
     }
     }
 </div>

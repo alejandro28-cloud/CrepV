@@ -433,3 +433,61 @@
         transform: rotate(360deg);
     }
 }
+
+.cart-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    background: var(--accent);
+    color: white;
+    
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.18);
+
+    animation: toast-in .2s ease-out;
+
+    z-index: 300;
+
+    &.error {
+        background: var(--danger);
+    }
+}
+
+.toast-icon {
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    color: var(--accent);
+
+    border-radius: 50%;
+    font-weight: 800;
+}
+
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}

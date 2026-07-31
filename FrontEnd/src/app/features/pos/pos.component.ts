@@ -57,6 +57,11 @@ export class PosComponent implements OnInit {
 
   datosClienteVisible = signal<boolean>(false);
 
+  toastMessage = signal('');
+  toastType = signal<'success' | 'error'>('success');
+
+  private toastTimer?: ReturnType<typeof setTimeout>;
+
   orderData: {
     customerName: string;
     consumeType: ConsumeType;
@@ -135,6 +140,7 @@ export class PosComponent implements OnInit {
       }]);
     }
     this.searchQuery = '';
+    this.showToast(`${product.name} agregado al carrito`);    
     console.log(this.cart().length)
   }
 
@@ -209,6 +215,8 @@ export class PosComponent implements OnInit {
         this.datosClienteVisible.set(false);
         this.orderSaving.set(false);
         this.orderSuccess.set(true);
+        this.showToast('Orden creada correctamente');
+
         this.cart.set([]);
         this.orderData = { customerName: '', consumeType: 'dine_in', tableNumber: '', paymentMethod: 'cash' };
         setTimeout(() => this.orderSuccess.set(false), 3000);
@@ -216,6 +224,7 @@ export class PosComponent implements OnInit {
       error: () => {
         this.datosClienteVisible.set(false);
         this.orderError.set('Error al crear la orden');
+        this.showToast('Error al crear la orden','error');
         this.orderSaving.set(false);
       },
     });
@@ -252,6 +261,19 @@ export class PosComponent implements OnInit {
         productWord.includes(word)
       )
     );
+  }
+
+  showToast(message: string, type: 'success' | 'error' = 'success') {
+      this.toastMessage.set(message);
+      this.toastType.set(type);
+
+      if (this.toastTimer) {
+        clearTimeout(this.toastTimer);
+      }
+
+      this.toastTimer = setTimeout(() => {
+        this.toastMessage.set('');
+      }, 2500);
   }
 
 }
