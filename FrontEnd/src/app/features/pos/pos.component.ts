@@ -97,12 +97,17 @@ export class PosComponent implements OnInit {
   }
 
   onSearch() {
-    const q = this.searchQuery.toLowerCase().trim();
-    if (!q) { return; }
-    // SERVICIO: ProductsService.getProducts() — GET /products?department=creperia&search=:q
-    // Para demo usamos filtro local; reemplazar con: this.productsService.getProducts({ department: 'creperia', search: q })
+    const q = this.searchQuery.trim();
+
+    if (!q) {
+      this.suggestions.set(this.allProducts().slice(0, 4));
+      return;
+    }
+
     this.suggestions.set(
-      this.allProducts().filter(p => p.name.toLowerCase().includes(q) && p.available).slice(0, 6)
+      this.allProducts()
+        .filter(p => p.available && this.productMatches(p, q))
+        .slice(0, 6)
     );
   }
 
@@ -226,4 +231,27 @@ export class PosComponent implements OnInit {
     };
     return map[cat] ?? cat;
   }
+
+  private normalizeText(text: string): string[] {
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // quitar acentos
+      .replace(/[^a-z0-9\s]/g, ' ')    // quitar / + -
+      .split(/\s+/)
+      .filter(Boolean);
+  }
+
+
+  private productMatches(product: Product, query: string): boolean {
+    const productWords = this.normalizeText(product.name);
+    const searchWords = this.normalizeText(query);
+
+    return searchWords.every(word =>
+      productWords.some(productWord =>
+        productWord.includes(word)
+      )
+    );
+  }
+
 }

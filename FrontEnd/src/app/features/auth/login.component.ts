@@ -28,7 +28,7 @@ import { AuthService } from '../../core/services/auth.service';
               type="text"
               [(ngModel)]="username"
               name="username"
-              placeholder="admin / seller"
+              placeholder="usuario"
               autocomplete="username"
             />
           </div>
