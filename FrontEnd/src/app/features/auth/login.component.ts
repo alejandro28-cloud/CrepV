@@ -13,8 +13,10 @@ import { AuthService } from '../../core/services/auth.service';
     <div class="login-page">
       <div class="login-card">
         <div class="login-logo">
-          <span class="logo-emoji">🥞</span>
-          <h1 class="logo-title">Crepería</h1>
+          <span class="logo-image">
+            <img src="logo.png" alt="Crepería logo">
+          </span>
+          <h1 class="logo-title">CrepV</h1>
           <p class="logo-sub">Sistema de ventas</p>
         </div>
 
@@ -78,10 +80,17 @@ import { AuthService } from '../../core/services/auth.service';
       margin-bottom: 2.5rem;
     }
 
-    .logo-emoji {
-      font-size: 3rem;
-      display: block;
-      margin-bottom: 0.5rem;
+    .logo-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .logo-image img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
     }
 
     .logo-title {
