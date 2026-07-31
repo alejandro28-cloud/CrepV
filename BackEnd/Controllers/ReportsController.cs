@@ -122,7 +122,7 @@ public class ReportsController(AppDbContext db) : ControllerBase
         );
     }
 
-    private static OrderDto MapOrder(Order o) => new(
+    private static OrderDto MapOrder(Orders o) => new(
         o.Id, o.AperturaId,  o.CustomerName,
         o.ConsumeType.ToString(), o.TableNumber,
         o.Items.Select(i => new OrderItemDto(i.ProductId,  i.ProductName, i.Department.ToString(), i.Quantity, i.UnitPrice, i.Subtotal)).ToList(),

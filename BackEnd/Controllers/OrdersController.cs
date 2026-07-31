@@ -92,7 +92,7 @@ public class OrdersController(AppDbContext db) : ControllerBase
             });
         }
 
-        var order = new Order
+        var order = new Orders
         {
             AperturaId    = req.AperturaId,
             CustomerName  = req.CustomerName,
@@ -133,7 +133,7 @@ public class OrdersController(AppDbContext db) : ControllerBase
         return Ok(Map(order));
     }
 
-    private static OrderDto Map(Order o) => new(
+    private static OrderDto Map(Orders o) => new(
         o.Id,
         o.AperturaId,
         o.CustomerName,

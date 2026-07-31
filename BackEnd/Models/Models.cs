@@ -30,7 +30,7 @@ public class User
 
     // Navigation
     public ICollection<Apertura> Aperturas { get; set; } = [];
-    public ICollection<Order> Orders { get; set; } = [];
+    public ICollection<Orders> Orders { get; set; } = [];
 }
 
 // ─── Caja ─────────────────────────────────────────────────────────────────────
@@ -47,15 +47,15 @@ public class Apertura
 
     public DateTime OpenedAt { get; set; } = DateTime.UtcNow;
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal OpeningCash { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal TiendaOpeningCash { get; set; }
 
     public CajaStatus Status { get; set; } = CajaStatus.open;
 
-    public ICollection<Order> Orders { get; set; } = [];
+    public ICollection<Orders> Orders { get; set; } = [];
 
     public Corte? Corte { get; set; }
 }
@@ -78,29 +78,29 @@ public class Corte
     public DateTime ClosedAt { get; set; } = DateTime.UtcNow;
 
     // Crepería
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal ClosingCash { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal CardSales { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal ExpectedCash { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal Difference { get; set; }
 
     // Tienda
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal TiendaClosingCash { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal TiendaCardSales { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal TiendaExpectedCash { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal TiendaDifference { get; set; }
 }
 
@@ -114,7 +114,7 @@ public class Product
     [Required, MaxLength(100)]
     public string Name { get; set; } = string.Empty;
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal Price { get; set; }
 
     public Category Category { get; set; }
@@ -128,7 +128,7 @@ public class Product
 
 // ─── Order ────────────────────────────────────────────────────────────────────
 
-public class Order
+public class Orders
 {
     [Key]
     public int Id { get; set; }
@@ -146,7 +146,7 @@ public class Order
     [MaxLength(20)]
     public string? TableNumber { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal Total { get; set; }
 
     public PaymentMethod PaymentMethod { get; set; }
@@ -174,7 +174,7 @@ public class OrderItem
     public int OrderId { get; set; }
 
     [ForeignKey(nameof(OrderId))]
-    public Order? Order { get; set; }
+    public Orders? Order { get; set; }
 
     public Department Department { get; set; }
 
@@ -188,9 +188,9 @@ public class OrderItem
 
     public int Quantity { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal UnitPrice { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Column(TypeName = "numeric(10,2)")]
     public decimal Subtotal { get; set; }
 }
