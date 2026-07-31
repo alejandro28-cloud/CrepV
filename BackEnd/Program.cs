@@ -8,7 +8,6 @@ using CafeCreperiaApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // ── Database ──────────────────────────────────────────────────────────────────
-// ── Database ──────────────────────────────────────────────────────────────────
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -55,7 +54,7 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://localhost:4200",
-                "https://alejandro28-cloud.github.io/"
+                "https://alejandro28-cloud.github.io"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
@@ -77,8 +76,18 @@ builder.Services.AddControllers()
 // ─────────────────────────────────────────────────────────────────────────────
 var app = builder.Build();
 
+// ── Migraciones automáticas al iniciar ───────────────────────────────────────
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
+// ── Puerto dinámico para Render ──────────────────────────────────────────────
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://+:{port}");
+
 // ── Pipeline ──────────────────────────────────────────────────────────────────
-app.UseHttpsRedirection();
 app.UseCors("Angular");
 app.UseAuthentication();
 app.UseAuthorization();
