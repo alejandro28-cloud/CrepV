@@ -147,7 +147,7 @@ export class PosComponent implements OnInit {
   addTiendaItem() {
     if (this.tiendaPrice <= 0) return;
     this.cart.update(items => [...items, {
-      productId: (--this.tiendaIds) * - 1, //Importat change the id corresponding the tienda product
+      productId: 17, //Importat change the id corresponding the tienda product
       productName: 'Tienda',
       quantity: 1,
       unitPrice: this.tiendaPrice,
